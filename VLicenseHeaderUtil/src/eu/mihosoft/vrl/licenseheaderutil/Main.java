@@ -56,8 +56,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- *
- * @author miho
+ * 
+ * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class Main {
 

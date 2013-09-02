@@ -1,6 +1,6 @@
 apply from: 'jdkdetect.gradle'
-
 apply plugin: 'application'
+apply from: 'maven-deployment.gradle'
 
 repositories {
     mavenCentral()
@@ -32,12 +32,17 @@ sourceSets {
     }
 }
 
-
 mainClassName = "eu.mihosoft.vrl.licenseheaderutil.Main"
 
 tasks.withType(Compile) {
     options.encoding = 'UTF-8'
 }
+
+javadoc { 
+  options.encoding = "UTF-8" 
+}
+
+
 
 
 
