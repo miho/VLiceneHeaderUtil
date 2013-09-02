@@ -7,6 +7,7 @@ Allows to automatically change license headers of `.java` source files based on 
 ## Requirements:
 
 Only `.java` files can be processed and only if they contain a correct package declaration such as `package my.package;`.
+Everything before the package declaration will be replaced by the header.
 
 ## How To Use It:
 
