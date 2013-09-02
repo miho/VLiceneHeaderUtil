@@ -1,0 +1,86 @@
+apply from: 'jdkdetect.gradle'
+
+// sonatype dependencies
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+// maven deployment properties
+//if (project.jdk == 8) {
+//    group = 'eu.mihosoft.vrl.workflow-8.0'
+//} else {
+//    group = 'eu.mihosoft.vrl.workflow'
+//}
+
+group = 'eu.mihosoft.vrl.vlicense-header-util'
+
+version = '0.1-r1-SNAPSHOT'
+
+//file("E:\\sonatype.properties").withReader { reader ->
+file("/Volumes/TRUECRYPT/sonatype.properties").withReader { reader ->
+  def userProps = new Properties()
+  userProps.load(reader)
+  userProps.each{
+    it->  project.ext.set(it.key, it.value)
+  }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+artifacts {
+    archives jar
+    
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signPom(deployment) }
+ 
+            repository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+              authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+ 
+            pom.project {
+               name 'VLiceneHeaderUtil'
+               packaging 'jar'
+               description 'License header utility project'
+               url 'https://github.com/miho/VLiceneHeaderUtil'
+ 
+               scm {
+                   url 'git:git@github.com:miho/VLiceneHeaderUtil.git'
+                   connection 'git:git@github.com:miho/VLiceneHeaderUtil.git'
+                   developerConnection 'git:git@github.com:miho/VLiceneHeaderUtil.git'
+               }
+ 
+               licenses {
+                   license {
+                       name 'LGPL License'
+                       url 'http://opensource.org/licenses/LGPL-3.0'
+                       distribution 'repo'
+                   }
+               }
+ 
+               developers {
+                   developer {
+                       id 'miho'
+                       name 'Michael Hoffer'
+                   }
+               }
+           }
+        }
+    }
+}
