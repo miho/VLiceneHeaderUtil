@@ -1,0 +1,43 @@
+apply from: 'jdkdetect.gradle'
+
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.6'
+}
+
+dependencies {
+	compile 'org.antlr:antlr4:4.0'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/']
+        }
+        
+        resources {
+            srcDirs = ['src/']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['test/']
+        }
+    }
+}
+
+
+mainClassName = "eu.mihosoft.vrl.licenseheaderutil.Main"
+
+tasks.withType(Compile) {
+    options.encoding = 'UTF-8'
+}
+
+
+
