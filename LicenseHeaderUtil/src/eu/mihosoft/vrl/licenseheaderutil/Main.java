@@ -1,4 +1,5 @@
-/* 
+/* Main.java
+ *
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
  * Copyright (c) 2009–2012 Steinbeis Forschungszentrum (STZ Ölbronn),
@@ -47,6 +48,7 @@
  * A Framework for Declarative GUI Programming on the Java Platform.
  * Computing and Visualization in Science, 2011, in press.
  */
+
 package eu.mihosoft.vrl.licenseheaderutil;
 
 import java.io.FileNotFoundException;
@@ -66,7 +68,7 @@ public class Main {
 
         LicenseHeaderUtil.changeLicenseHeaderInDir(
                 Paths.get("sample-project/src"),
-                Paths.get("sample-project/src-out"),
+                Paths.get("sample-project/src-out"), 
                 Paths.get("sample-project/license-template.txt")
                 );
     }
