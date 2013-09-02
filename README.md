@@ -2,7 +2,7 @@ VLiceneHeaderUtil
 =================
 
 
-Allows to automatically change license headers of a file based on a template.
+Allows to automatically change license headers of `.java` source files based on a template.
 
 ## Requirements:
 
