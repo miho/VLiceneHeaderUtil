@@ -54,7 +54,6 @@ package eu.mihosoft.vrl.licenseheaderutil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,7 +61,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -71,29 +69,46 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 
 /**
+ * This utility class provides methods for easily add/replace license header
+ * information in .java source files.
  * 
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class LicenseHeaderUtil {
-
+    
+    private LicenseHeaderUtil() {
+        throw new AssertionError("Don't instanciate me!");
+    }
+    
+    /**
+     * Changes the license header of the specified .java source file. Everything
+     * between the beginning of the file and the package declaration wil be
+     * replaced with the specified string.
+     * @param srcFile the source file
+     * @param destFile the destination file (can be equal to src file)
+     * @param licenseComment license comment (must be a valid Java comment)
+     * @return <code>true</code> if the file could be processed;
+     *         <code>false</code> otherwise
+     * @throws RecognitionException
+     * @throws IOException 
+     */
     public static boolean changeLicenseHeaderOfFile(
-            Path inputFile,
-            Path outputFile,
+            Path srcFile,
+            Path destFile,
             String licenseComment) throws RecognitionException, IOException {
 
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-FILE-NAME}",
-                outputFile.getFileName().toString());
+                destFile.getFileName().toString());
 
         InputStream is = null;
 
-        if (inputFile != null && Files.isRegularFile(inputFile)) {
-            is = Files.newInputStream(inputFile);
+        if (srcFile != null && Files.isRegularFile(srcFile)) {
+            is = Files.newInputStream(srcFile);
         }
 
         ANTLRInputStream input = new ANTLRInputStream(is);
@@ -109,15 +124,27 @@ public class LicenseHeaderUtil {
 
         String fullCode = licenseComment + "\n" + extractor.getCode();
         if (extractor.hasPackage()) {
-            Files.write(outputFile, fullCode.getBytes("UTF-8"));
+            Files.write(destFile, fullCode.getBytes("UTF-8"));
         } else {
-            System.out.println(" -> skipping: " + inputFile);
+            System.out.println(" -> skipping: " + srcFile);
             return false;
         }
 
         return true;
     }
     
+    /**
+     * Changes the license header of all .java source files in the specified 
+     * directory. Everything
+     * between the beginning of the file and the package declaration wil be
+     * replaced with the specified string.
+     * @param srcFile the source directory
+     * @param destFile the destination directory (can be equal to src directory)
+     * @param newLicenseHeader location of license comment file
+     *                         (must be contain a valid Java comment)
+     * @return <code>true</code> if the file could be processed;
+     *         <code>false</code> otherwise
+     */
     public static boolean changeLicenseHeaderInDir(
             Path inputDir,
             Path outputDir, Path newLicenseHeader) {
@@ -140,6 +167,17 @@ public class LicenseHeaderUtil {
         return false;
     }
 
+    /**
+     * Changes the license header of all .java source files in the specified 
+     * directory. Everything
+     * between the beginning of the file and the package declaration wil be
+     * replaced with the specified string.
+     * @param srcFile the source directory
+     * @param destFile the destination directory (can be equal to src directory)
+     * @param licenseComment license comment (must be a valid Java comment)
+     * @return <code>true</code> if the file could be processed;
+     *         <code>false</code> otherwise
+     */
     public static boolean changeLicenseHeaderInDir(
             Path inputDir,
             Path outputDir, String newLicenseHeader) {
