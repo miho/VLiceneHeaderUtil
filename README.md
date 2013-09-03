@@ -19,12 +19,19 @@ Everything before the package declaration will be replaced by the header.
     
 ## Template File:
 
-The template contains the license header. VLiceneHeaderUtil provides the actual file name via a variable `${VRL-LICENSE-HEADER-FILE-NAME}`
+The template contains the license header. VLiceneHeaderUtil provides the actual file name via a variable `${VRL-LICENSE-HEADER-FILE-NAME}`.
+The current date is also accessible (see example below).
 
 
 Example: 
 
     /* ${VRL-LICENSE-HEADER-FILE-NAME}
+     * 
+     * Date ${VRL-LICENSE-HEADER-DATE}
+     * 
+     * Year  ${VRL-LICENSE-HEADER-YEAR}
+     * Month ${VRL-LICENSE-HEADER-MONTH}
+     * Day   ${VRL-LICENSE-HEADER-DAY}
      *
      * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
      * 
