@@ -41,7 +41,7 @@ Now specify the license header template.
 
 **Example:**
 
-Specify the header as string:
+It is possible to specify the header as string:
 
     repairHeaders.licenseHeaderText = 'license text'
     
@@ -49,6 +49,6 @@ or specify a file taht contains the template:
 
     repairHeaders.licenseHeaderText = new File(projectDir,'license-template.txt')
 
-
+Now call the `repairHeaders`task to add the license header to all source files.
     
     
