@@ -106,9 +106,9 @@ public class LicenseHeaderUtil {
         
         Date now = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//        DateFormat yearFormat = new SimpleDateFormat("yyyy");
-//        DateFormat monthFormat = new SimpleDateFormat("MM");
-//        DateFormat dayFormat = new SimpleDateFormat("dd");
+        DateFormat yearFormat = new SimpleDateFormat("yyyy");
+        DateFormat monthFormat = new SimpleDateFormat("MM");
+        DateFormat dayFormat = new SimpleDateFormat("dd");
 
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-FILE-NAME}",
@@ -116,15 +116,15 @@ public class LicenseHeaderUtil {
 
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-YEAR}",
-                "" + Calendar.getInstance().get(Calendar.YEAR));
+                "" + yearFormat.format(now));
         
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-MONTH}",
-                "" + Calendar.getInstance().get(Calendar.MONTH));
+                "" + monthFormat.format(now));
         
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-DAY}",
-                "" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+                "" + dayFormat.format(now));
         
         
         licenseComment = licenseComment.replace(
