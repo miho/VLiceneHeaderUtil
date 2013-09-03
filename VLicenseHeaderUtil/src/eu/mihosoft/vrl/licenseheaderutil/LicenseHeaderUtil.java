@@ -145,7 +145,8 @@ public class LicenseHeaderUtil {
         ParserRuleContext tree = parser.compilationUnit();
 
         ParseTreeWalker walker = new ParseTreeWalker();
-        ChangeLicenseHeaderListener extractor = new ChangeLicenseHeaderListener(parser);
+        ChangeLicenseHeaderListener extractor = 
+                new ChangeLicenseHeaderListener(parser);
         walker.walk(extractor, tree);
 
         String fullCode = licenseComment + "\n" + extractor.getCode();
