@@ -242,7 +242,7 @@ class ChangeLicenseVisitor extends SimpleFileVisitor<Path> {
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
         if (file.toString().endsWith(".java")) {
-            System.out.println("changing: " + file.toString());
+            System.out.println(" -> changing: " + file.toString());
 
             Path to = toPath.resolve(fromPath.relativize(file));
 
