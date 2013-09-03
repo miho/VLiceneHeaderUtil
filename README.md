@@ -31,3 +31,24 @@ Example:
      * THE LICENSE...
      */
     
+## How To Use The Gradle Plugin
+
+To use the plugin add the following line to the `build.gradle` file:
+
+    apply from: 'http://gradle-plugins.mihosoft.eu/latest/vlicenseheader.txt'
+    
+Now specify the license header template.
+
+Example:
+
+Specify the header as string:
+
+    repairHeaders.licenseHeaderText = 'license text'
+    
+or specify a file taht contains the template:
+
+    repairHeaders.licenseHeaderText = new File(projectDir,'license-template.txt')
+
+
+    
+    
