@@ -47,11 +47,16 @@ class VLicenseHeaderPlugin implements Plugin {
 
 class VLicenseHeaderPluginExtension {
     def licenseHeaderText = 
-         "/**\${VRL-LICENSE-HEADER-FILE-NAME}\n\n"+
-         "* LICENSE HEADER TEMPLATE\n\n" + 
+         "/**\n"+
+         "* \${VRL-LICENSE-HEADER-FILE-NAME}\n"+
+         "* \n"+
+         "* LICENSE HEADER TEMPLATE\n"+
+         "* \n" + 
          "* Note: define license header with either\n" + 
-         "*  'repairHeaders.licenseHeaderText = 'license text'\n" +
+         "*  repairHeaders.licenseHeaderText = 'license text'\n" +
          "* or\n"+
-         "*  'repairHeaders.licenseHeaderText = new File(projectDir,'license-template.txt)\n" +
+         "*  repairHeaders.licenseHeaderText = new File(projectDir,'license-template.txt')\n" +
+         "*\n"+
+         "* See also: https://github.com/miho/VLiceneHeaderUtil"+
          "*/\n";
 }
