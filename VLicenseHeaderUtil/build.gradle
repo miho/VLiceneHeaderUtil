@@ -1,6 +1,6 @@
 apply from: 'jdkdetect.gradle'
 apply plugin: 'application'
-apply from: 'maven-deployment.gradle'
+//apply from: 'maven-deployment.gradle'
 
 repositories {
     mavenCentral()
