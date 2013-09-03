@@ -31,7 +31,7 @@ Example:
      * THE LICENSE...
      */
     
-## How To Use The Gradle Plugin
+## How To Use The Gradle Plugin:
 
 To use the plugin add the following line to the `build.gradle` file:
 
@@ -39,7 +39,7 @@ To use the plugin add the following line to the `build.gradle` file:
     
 Now specify the license header template.
 
-Example:
+**Example:**
 
 Specify the header as string:
 
