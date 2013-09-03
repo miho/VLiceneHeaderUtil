@@ -48,7 +48,6 @@
  * A Framework for Declarative GUI Programming on the Java Platform.
  * Computing and Visualization in Science, 2011, in press.
  */
-
 package eu.mihosoft.vrl.licenseheaderutil;
 
 import java.io.IOException;
@@ -60,7 +59,11 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -71,39 +74,62 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-
 /**
  * This utility class provides methods for easily add/replace license header
  * information in .java source files.
- * 
+ *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 public class LicenseHeaderUtil {
-    
+
     private LicenseHeaderUtil() {
         throw new AssertionError("Don't instanciate me!");
     }
-    
+
     /**
      * Changes the license header of the specified .java source file. Everything
      * between the beginning of the file and the package declaration wil be
      * replaced with the specified string.
+     *
      * @param srcFile the source file
      * @param destFile the destination file (can be equal to src file)
      * @param licenseComment license comment (must be a valid Java comment)
      * @return <code>true</code> if the file could be processed;
-     *         <code>false</code> otherwise
+     * <code>false</code> otherwise
      * @throws RecognitionException
-     * @throws IOException 
+     * @throws IOException
      */
     public static boolean changeLicenseHeaderOfFile(
             Path srcFile,
             Path destFile,
             String licenseComment) throws RecognitionException, IOException {
+        
+        Date now = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        DateFormat yearFormat = new SimpleDateFormat("yyyy");
+//        DateFormat monthFormat = new SimpleDateFormat("MM");
+//        DateFormat dayFormat = new SimpleDateFormat("dd");
 
         licenseComment = licenseComment.replace(
                 "${VRL-LICENSE-HEADER-FILE-NAME}",
                 destFile.getFileName().toString());
+
+        licenseComment = licenseComment.replace(
+                "${VRL-LICENSE-HEADER-YEAR}",
+                "" + Calendar.getInstance().get(Calendar.YEAR));
+        
+        licenseComment = licenseComment.replace(
+                "${VRL-LICENSE-HEADER-MONTH}",
+                "" + Calendar.getInstance().get(Calendar.MONTH));
+        
+        licenseComment = licenseComment.replace(
+                "${VRL-LICENSE-HEADER-DAY}",
+                "" + Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        
+        
+        licenseComment = licenseComment.replace(
+                "${VRL-LICENSE-HEADER-DATE}",
+                "" + dateFormat.format(now));
 
         InputStream is = null;
 
@@ -132,18 +158,18 @@ public class LicenseHeaderUtil {
 
         return true;
     }
-    
+
     /**
-     * Changes the license header of all .java source files in the specified 
-     * directory. Everything
-     * between the beginning of the file and the package declaration wil be
-     * replaced with the specified string.
+     * Changes the license header of all .java source files in the specified
+     * directory. Everything between the beginning of the file and the package
+     * declaration wil be replaced with the specified string.
+     *
      * @param srcFile the source directory
      * @param destFile the destination directory (can be equal to src directory)
-     * @param newLicenseHeader location of license comment file
-     *                         (must be contain a valid Java comment)
+     * @param newLicenseHeader location of license comment file (must be contain
+     * a valid Java comment)
      * @return <code>true</code> if the file could be processed;
-     *         <code>false</code> otherwise
+     * <code>false</code> otherwise
      */
     public static boolean changeLicenseHeaderInDir(
             Path inputDir,
@@ -151,32 +177,32 @@ public class LicenseHeaderUtil {
         try {
             List<String> lines = Files.readAllLines(newLicenseHeader,
                     Charset.forName("UTF-8"));
-            
+
             StringBuilder sb = new StringBuilder();
-            
+
             for (String string : lines) {
                 sb.append(string).append("\n");
             }
-            
+
             return changeLicenseHeaderInDir(inputDir, outputDir, sb.toString());
         } catch (IOException ex) {
             Logger.getLogger(LicenseHeaderUtil.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
     }
 
     /**
-     * Changes the license header of all .java source files in the specified 
-     * directory. Everything
-     * between the beginning of the file and the package declaration wil be
-     * replaced with the specified string.
+     * Changes the license header of all .java source files in the specified
+     * directory. Everything between the beginning of the file and the package
+     * declaration wil be replaced with the specified string.
+     *
      * @param srcFile the source directory
      * @param destFile the destination directory (can be equal to src directory)
      * @param licenseComment license comment (must be a valid Java comment)
      * @return <code>true</code> if the file could be processed;
-     *         <code>false</code> otherwise
+     * <code>false</code> otherwise
      */
     public static boolean changeLicenseHeaderInDir(
             Path inputDir,
@@ -205,8 +231,9 @@ public class LicenseHeaderUtil {
         }
     }
 }
+
 /**
- * 
+ *
  * @author Michael Hoffer &lt;info@michaelhoffer.de&gt;
  */
 class ChangeLicenseVisitor extends SimpleFileVisitor<Path> {
