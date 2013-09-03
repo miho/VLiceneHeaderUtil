@@ -13,7 +13,7 @@ apply plugin: 'signing'
 
 group = 'eu.mihosoft.vrl.vlicense-header-util'
 
-version = '0.1-r1-SNAPSHOT'
+version = '0.1-r2-SNAPSHOT'
 
 //file("E:\\sonatype.properties").withReader { reader ->
 file("/Volumes/TRUECRYPT/sonatype.properties").withReader { reader ->
