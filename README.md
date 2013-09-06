@@ -14,7 +14,7 @@ Everything before the package declaration will be replaced by the header.
     LicenseHeaderUtil.changeLicenseHeaderInDir(
         Paths.get("sample-project/src"),
         Paths.get("sample-project/src-out"), // could also be the same as above (overwrites src files)
-        Paths.get("sample-project/license-template.gradle")
+        Paths.get("sample-project/license-template.txt")
     );
     
 ## Template File:
@@ -42,7 +42,7 @@ Example:
 
 To use the plugin add the following line to the `build.gradle` file:
 
-    apply from: 'http://gradle-plugins.mihosoft.eu/latest/vlicenseheader.txt'
+    apply from: 'http://gradle-plugins.mihosoft.eu/latest/vlicenseheader.gradle'
     
 Now specify the license header template.
 
