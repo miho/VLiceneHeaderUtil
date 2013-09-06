@@ -14,7 +14,7 @@ Everything before the package declaration will be replaced by the header.
     LicenseHeaderUtil.changeLicenseHeaderInDir(
         Paths.get("sample-project/src"),
         Paths.get("sample-project/src-out"), // could also be the same as above (overwrites src files)
-        Paths.get("sample-project/license-template.txt")
+        Paths.get("sample-project/license-template.gradle")
     );
     
 ## Template File:
